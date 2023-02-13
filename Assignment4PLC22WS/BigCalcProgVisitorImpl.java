@@ -1,8 +1,3 @@
-/**
- * @author Lamies Abbas
- * @id 12128050
- */
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
@@ -27,20 +22,6 @@ public class BigCalcProgVisitorImpl extends BigCalcProgBaseVisitor<BigDecimal> {
             return left.multiply(right);
         } else {
             return left.divide(right, 10, RoundingMode.HALF_UP);
-        }
-    }
-
-    @Override
-    public BigDecimal visitCondition(BigCalcProgParser.ConditionContext ctx) {
-        final BigDecimal left = visit(ctx.expression());
-        final BigDecimal middle = visit(ctx.statement(0));
-
-        if (left.doubleValue() != 0.0) {
-           // visit(ctx.statement(0));
-           // return new BigDecimal(middle);
-           return middle;
-        } else {
-             return visit(ctx.statement(1));
         }
     }
 
@@ -78,7 +59,6 @@ public class BigCalcProgVisitorImpl extends BigCalcProgBaseVisitor<BigDecimal> {
         if(value != null){
             return value;
         }
-        System.out.println("Warning: undefined variable: " + ctx.VAR().getText());
         return new BigDecimal(0);
     }
 

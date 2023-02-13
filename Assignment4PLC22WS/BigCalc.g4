@@ -1,16 +1,12 @@
-/**
- * @author Lamies Abbas
- * @id 12128050
- */
-
 grammar BigCalcProg;
 
 expressionStatement
-        : (statement)+ EOF
+        : (statement ';')+ EOF
         ;
 
 statement
-        : (assignment ';' | expression ';' | condition)
+        : assignment
+        | expression
         ;
 
 assignment
@@ -18,14 +14,9 @@ assignment
         | VAR '=' Number                         # assignNum
         ;
 
-condition
-        : ('if') ('(') expression (')') statement ('else') statement
-        ;
-
 expression
         : expression op=('*' | '/') expression  # mulDiv
         | expression op=('+' | '-') expression  # addSub
-        | expression ('?') expression (':') expression #con
         | Number                                # num
         | VAR                                   # var
         | ('(')+ expression (')')+              # parentheses
@@ -39,7 +30,6 @@ VAR
 Number
         : Digit* '.' Digit+
         | Digit+
-        | Digit* '.' Digit+ [eE] [+-]* Digit+
         ;
 
 Digit
